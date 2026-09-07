@@ -13,16 +13,29 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS listings (
+
   id SERIAL PRIMARY KEY,
+
   farmer_id INT REFERENCES users(id),
+
   crop TEXT NOT NULL,
+
   quantity NUMERIC,
+
   unit TEXT DEFAULT 'kg',
+
   quality_grade TEXT,
+
   photo_url TEXT,
+
   location TEXT,
+
+  expected_price NUMERIC,
+
   status TEXT DEFAULT 'open',
+
   created_at TIMESTAMP DEFAULT now()
+
 );
 
 CREATE TABLE IF NOT EXISTS prices (

@@ -20,6 +20,11 @@ export default function Dashboard() {
       <div className="page-title">डॅशबोर्ड</div>
 
       <div style={{ display: "flex", gap: 10, marginBottom: 24, flexWrap: "wrap" }}>
+      <Link to="/farmer/offers">
+  <button className="btn-primary" style={{ background: "#16a34a" }}>
+    💰 आलेल्या ऑफर्स
+  </button>
+</Link>
         <Link to="/farmer/create-listing"><button className="btn-primary">➕ लिस्टिंग तयार करा</button></Link>
         <Link to="/farmer/price-trend"><button className="btn-primary" style={{ background: "#f59e0b" }}>📈 किंमत कल पहा</button></Link>
       </div>

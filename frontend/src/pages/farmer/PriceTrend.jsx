@@ -9,6 +9,7 @@ const CROPS = ["Onion", "Tomato", "Wheat", "Cotton", "Soybean"];
 export default function PriceTrend() {
   const [crop, setCrop] = useState(CROPS[0]);
   const [data, setData] = useState(null);
+  const [livePrices, setLivePrices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -16,6 +17,13 @@ export default function PriceTrend() {
     let active = true;
     setLoading(true);
     setError(null);
+    api.getLivePrices(crop)
+  .then((res) => {
+    if (active) setLivePrices(res);
+  })
+  .catch((e) => {
+    console.error("Live price error:", e.message);
+  });
     api.getForecast(crop)
       .then((res) => { if (active) setData(res); })
       .catch((e) => { if (active) setError(e.message); })
@@ -44,6 +52,41 @@ export default function PriceTrend() {
 
       {!loading && !error && data && (
         <>
+         <div className="card">
+  <div className="card-title">
+    🔴 Live Mandi Prices — {crop}
+  </div>
+
+  {livePrices.length === 0 ? (
+    <p>No live mandi prices available for {crop}.</p>
+  ) : (
+    <div style={{ overflowX: "auto" }}>
+      <table style={{ width: "100%", borderCollapse: "collapse" }}>
+        <thead>
+          <tr>
+            <th>District</th>
+            <th>Market</th>
+            <th>Min Price</th>
+            <th>Max Price</th>
+            <th>Modal Price</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {livePrices.slice(0, 10).map((item, index) => (
+            <tr key={index}>
+              <td>{item.district}</td>
+              <td>{item.market}</td>
+              <td>₹{item.min_price}</td>
+              <td>₹{item.max_price}</td>
+              <td><b>₹{item.modal_price}</b></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
+</div>
           <div className="stat-grid">
             <div className="stat-box">
               <div className="value">₹{lastActual ?? "—"}</div>

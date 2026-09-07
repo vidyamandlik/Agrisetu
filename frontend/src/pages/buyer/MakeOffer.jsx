@@ -20,7 +20,7 @@ export default function MakeOffer() {
     try {
       await api.post("/offers", {
         listing_id: listingId,
-        buyer_id: user?.id,
+        buyer_id: 2,
         offer_price: offerPrice
       });
       setStatus("success");

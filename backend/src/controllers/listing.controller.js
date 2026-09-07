@@ -14,6 +14,10 @@ exports.getAll = async (req, res) => {
     const result = await Listing.findAll();
     res.json(result.rows);
   } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  console.error("GET LISTINGS ERROR:", err);
+  res.status(500).json({
+    error: err.message,
+    details: err
+  });
+}
 };

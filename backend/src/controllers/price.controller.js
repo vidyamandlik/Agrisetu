@@ -1,5 +1,6 @@
 ﻿const Price = require("../models/Price");
 const forecastService = require("../services/forecastService");
+const mandiService = require("../services/mandiService");
 
 exports.getAll = async (req, res) => {
   try {
@@ -23,5 +24,26 @@ exports.getForecast = async (req, res) => {
     res.json(data);
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+
+
+exports.getLivePrices = async (req, res) => {
+  try {
+    const crop = req.query.crop;
+
+    if (!crop) {
+      return res.status(400).json({
+        error: "Please provide a crop name"
+      });
+    }
+
+    const prices = await mandiService.getMandiPrices(crop);
+
+    res.json(prices);
+  } catch (err) {
+    res.status(500).json({
+      error: err.message
+    });
   }
 };

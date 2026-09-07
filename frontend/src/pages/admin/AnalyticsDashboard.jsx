@@ -18,12 +18,18 @@ export default function AnalyticsDashboard() {
   }, []);
 
   // Demo/mock trend + breakdown data (replace with real backend fields when available)
-  const totals = stats || { totalListings: 0, totalOrders: 0, activeUsers: 0 };
+  const totals = stats || {
+  totalListings: 0,
+  totalOrders: 0,
+  activeUsers: 0,
+  totalOffers: 0
+};
   const barData = [
-    { name: "Listings", value: totals.totalListings || 0 },
-    { name: "Orders", value: totals.totalOrders || 0 },
-    { name: "Users", value: totals.activeUsers || 0 },
-  ];
+  { name: "Listings", value: totals.totalListings || 0 },
+  { name: "Offers", value: totals.totalOffers || 0 },
+  { name: "Orders", value: totals.totalOrders || 0 },
+  { name: "Users", value: totals.activeUsers || 0 },
+];
   const cropSplit = [
     { name: "Onion", value: 35 },
     { name: "Tomato", value: 25 },
@@ -43,6 +49,10 @@ export default function AnalyticsDashboard() {
             <div className="stat-box">
               <div className="value">{totals.totalListings}</div>
               <div className="label">Total Listings</div>
+              <div className="stat-box">
+  <div className="value">{totals.totalOffers}</div>
+  <div className="label">Total Offers</div>
+</div>
             </div>
             <div className="stat-box">
               <div className="value">{totals.totalOrders}</div>

@@ -27,6 +27,7 @@ export const api = {
   get,
   post,
   getPrices: () => request("/prices"),
+  getLivePrices: (crop) =>request(`/prices/live?crop=${encodeURIComponent(crop)}`),
   getForecast: (crop) => request(`/prices/forecast?crop=${encodeURIComponent(crop)}`),
   getAdvisory: (crop) => request(`/prices/advisory?crop=${encodeURIComponent(crop)}`),
   getListings: () => request("/listings"),
